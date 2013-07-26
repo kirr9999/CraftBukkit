@@ -202,7 +202,7 @@ public abstract class PlayerList {
         WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 
         // CraftBukkit start
-        PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(this.cserver.getPlayer(entityplayer), "\u00A7e" + entityplayer.name + " joined the game.");
+        PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(this.cserver.getPlayer(entityplayer), "\u00A7e" + entityplayer.name + " зашел на сервер");
         this.cserver.getPluginManager().callEvent(playerJoinEvent);
 
         String joinMessage = playerJoinEvent.getJoinMessage();
@@ -254,7 +254,7 @@ public abstract class PlayerList {
         // CraftBukkit start - Quitting must be before we do final save of data, in case plugins need to modify it
         org.bukkit.craftbukkit.event.CraftEventFactory.handleInventoryCloseEvent(entityplayer);
 
-        PlayerQuitEvent playerQuitEvent = new PlayerQuitEvent(this.cserver.getPlayer(entityplayer), "\u00A7e" + entityplayer.name + " left the game.");
+        PlayerQuitEvent playerQuitEvent = new PlayerQuitEvent(this.cserver.getPlayer(entityplayer), "\u00A7e" + entityplayer.name + " вышел с сервера");
         this.cserver.getPluginManager().callEvent(playerQuitEvent);
         entityplayer.getBukkitEntity().disconnect(playerQuitEvent.getQuitMessage());
         // CraftBukkit end
@@ -317,15 +317,15 @@ public abstract class PlayerList {
             s2 = s2.substring(0, s2.indexOf(":"));
             if (this.banByIP.isBanned(s2)) {
                 BanEntry banentry1 = (BanEntry) this.banByIP.getEntries().get(s2);
-                String s3 = "Your IP address is banned from this server!\nReason: " + banentry1.getReason();
+                String s3 = "Ваш ip-адрес заблокирован на этом сервере!\nПричина: " + banentry1.getReason();
 
                 if (banentry1.getExpires() != null) {
-                    s3 = s3 + "\nYour ban will be removed on " + d.format(banentry1.getExpires());
+                    s3 = s3 + "\nБлокировка снимается " + d.format(banentry1.getExpires());
                 }
 
                 event.disallow(PlayerLoginEvent.Result.KICK_BANNED, s3);
             } else if (this.players.size() >= this.maxPlayers) {
-                event.disallow(PlayerLoginEvent.Result.KICK_FULL, "The server is full!");
+                event.disallow(PlayerLoginEvent.Result.KICK_FULL, "Сервер заполнен!");
             } else {
                 event.disallow(PlayerLoginEvent.Result.ALLOWED, s2);
             }
@@ -358,7 +358,7 @@ public abstract class PlayerList {
 
         while (iterator.hasNext()) {
             entityplayer = (EntityPlayer) iterator.next();
-            entityplayer.playerConnection.disconnect("You logged in from another location");
+            entityplayer.playerConnection.disconnect("Вы уже зашли с другого места...Наверное с микроволновки :D");
         }
 
         /* CraftBukkit start
