@@ -142,7 +142,7 @@ public class PlayerConnection extends Connection {
     public void disconnect(String s) {
         if (!this.disconnected) {
             // CraftBukkit start
-            String leaveMessage = EnumChatFormat.YELLOW + this.player.getName() + " left the game.";
+            String leaveMessage = EnumChatFormat.YELLOW + this.player.getName() + " вышел с сервера";
 
             PlayerKickEvent event = new PlayerKickEvent(this.server.getPlayer(this.player), s, leaveMessage);
 
