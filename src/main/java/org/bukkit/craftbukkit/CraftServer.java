@@ -511,7 +511,7 @@ public final class CraftServer implements Server {
         try {
             return dispatchCommand(sender, serverCommand.command);
         } catch (Exception ex) {
-            getLogger().log(Level.WARNING, "Unexpected exception while parsing console command \"" + serverCommand.command + '"', ex);
+            getLogger().log(Level.WARNING, "Ошибка во время исполнеия консольной команды \"" + serverCommand.command + '"', ex);
             return false;
         }
     }
@@ -524,7 +524,7 @@ public final class CraftServer implements Server {
             return true;
         }
 
-        sender.sendMessage("Unknown command. Type \"help\" for help.");
+        sender.sendMessage("Неизвестная команда, введи \"help\" для помощи.");
 
         return false;
     }
